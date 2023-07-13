@@ -54,14 +54,15 @@ def data_shown(AFL_selection, sorted_data):
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader(AFL_selection[0])
+        
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{AFL_selection[0]}</h3>", unsafe_allow_html=True)
         team1 = sort_team(sorted_data,AFL_selection[0])
         st.write(team1[['Player', 'Goals_Avg', 'Disposals']])
 
 
 
     with col2:
-        st.subheader(AFL_selection[1])
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{AFL_selection[1]}</h3>", unsafe_allow_html=True)
         team2 = sort_team(sorted_data,AFL_selection[1])
         st.write(team2[['Player', 'Goals_Avg', 'Disposals']])
 
