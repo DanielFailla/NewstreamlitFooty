@@ -143,7 +143,7 @@ def data_shown(AFL_selection, sorted_data):
 
     with tab1:
     
-        st.subheader("▯🏉▯ Goal Averages")
+        st.subheader("🏉 Goal Averages")
         st.bar_chart(data=Team1_Risk, x='Player', y='Adjusted Goals_Avg', use_container_width=True)
         st.subheader("🤾‍♂️ Disposals Average")
         st.bar_chart(data=Team1_Risk, x='Player', y='Adjusted Disposals', use_container_width=True)
