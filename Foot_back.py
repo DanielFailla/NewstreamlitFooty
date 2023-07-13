@@ -3,7 +3,9 @@ import pandas as pd
 import numpy as np
 import Foot_back as Fb
 def intro():
-    st.header("🏉FOOTY BETTING🏉")
+    #st.header("🏉FOOTY BETTING🏉")
+    st.markdown("<h1 style='text-align: center; color: black;'>🏉FOOTY BETTING🏉</h1>", unsafe_allow_html=True)
+    
 
     st.divider()
     
@@ -21,9 +23,11 @@ def intro():
         st.text("Step3. Click browse files and add csv file.")
         st.text("Ensure its the current week stats of the players")
 
-    st.write("CSV file location 👉 [link](https://www.wheeloratings.com/afl_stats.html)👈")
+    #st.write("CSV file location 👉 [link](https://www.wheeloratings.com/afl_stats.html)👈")
+    st.markdown('<center>Download file here <a href="https://www.wheeloratings.com/afl_stats.html">CSV</a></center>', unsafe_allow_html=True)
     st.divider()
-    st.subheader('📦 CSV DROPBOX ')
+    #st.subheader('📦 CSV DROPBOX ')
+    st.markdown("<h2 style='text-align: center; color: black;'>📦 CSV DROPBOX 📦</h2>", unsafe_allow_html=True)
 
 def read_data(uploaded_file):
        # Read CSV file
@@ -65,8 +69,10 @@ def data_shown(AFL_selection, sorted_data):
     ##RISK SLIDER
     st.divider()
 
-    st.subheader('Choose Risk Level ↕️')
-
+    #st.subheader('Choose Risk Level ↕️')
+    st.markdown("<h2 style='text-align: center; color: black;'>Choose Risk Level ↕️</h2>", unsafe_allow_html=True)
+    
+    @st.cache_data(experimental_allow_widgets=True)
     def slider_cached():
         Risk_range = st.slider('Select Risk level', 0.0, 4.0, 0.0)
         return Risk_range
@@ -131,70 +137,87 @@ def data_shown(AFL_selection, sorted_data):
                             'Adjusted Goals_Avg':np.array(team2['Goals_Avg'])+np.array(GRF_team2['Risk']),
                                 'Adjusted Disposals':np.array(team2['Disposals'])+np.array(DRF_team2['Risk'])})
 
-    word_1 = "Risk Selection: "
+    word_1 = "Selection: "
     word_2 = Risk
 
     combines_word = f'{word_1}{word_2}'
     team1_name = AFL_selection[0]
     team2_name = AFL_selection[1]
     betslip_banner = '📚 Bet Slip Recomendations 📚'
-    team1_slip_name = f'{team1_name}{betslip_banner}'
-    team2_slip_name = f'{team2_name}{betslip_banner}'
+    team1_slip_name = betslip_banner
+    team2_slip_name = betslip_banner
+    word_for = ' '
+    combines_word1 = f'{team1_name}{word_for}{word_1}{word_2}'
+    combines_word2 = f'{team2_name}{word_for}{word_1}{word_2}'
 
     with tab1:
     
-        st.subheader("🏉 Goal Averages")
+      
+        st.markdown("<h3 style='text-align: center; color: black;'>🏉 Goal Averages</h3>", unsafe_allow_html=True)
         st.bar_chart(data=Team1_Risk, x='Player', y='Adjusted Goals_Avg', use_container_width=True)
-        st.subheader("🤾‍♂️ Disposals Average")
+       
+        st.markdown("<h3 style='text-align: center; color: black;'>🤾‍♂️ Disposals Average</h3>", unsafe_allow_html=True)
         st.bar_chart(data=Team1_Risk, x='Player', y='Adjusted Disposals', use_container_width=True)
         st.divider()
-        st.subheader(team1_slip_name)
-        st.subheader(combines_word)
+       
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{team1_slip_name}</h3>", unsafe_allow_html=True)
+      
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{combines_word1}</h3>", unsafe_allow_html=True)
 
 
         col3, col4 = st.columns(2)
 
         with col3:
-            st.subheader("15 or more disposals")
+            
+            st.markdown("<h3 style='text-align: center; color: black;'>15 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team1_Risk,15,20)
-            st.subheader("20 or more disposals")
+           
+            st.markdown("<h3 style='text-align: center; color: black;'>20 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team1_Risk,20,25)
-            st.subheader("25 or more disposals")
+            
+            st.markdown("<h3 style='text-align: center; color: black;'>25 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team1_Risk,25,40)
 
         with col4:
-            st.subheader("1 or more goals")
+            
+            st.markdown("<h3 style='text-align: center; color: black;'>1 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team1_Risk,1,10)
-            st.subheader("2 or more goals")
+         
+            st.markdown("<h3 style='text-align: center; color: black;'>2 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team1_Risk,2,10)
         
 
 
     with tab2:
     
-        st.subheader("🏉 Goal Averages")
+  
+        st.markdown("<h3 style='text-align: center; color: black;'>🏉 Goal Averages</h3>", unsafe_allow_html=True)
         st.bar_chart(data=Team2_Risk, x='Player', y='Adjusted Goals_Avg', use_container_width=True)
-        st.subheader("🤾 Disposals Average")
+        
+        st.markdown("<h3 style='text-align: center; color: black;'>🤾 Disposals Average</h3>", unsafe_allow_html=True)
         st.bar_chart(data=Team2_Risk, x='Player', y='Adjusted Disposals', use_container_width=True)
         
-        st.subheader(team2_slip_name)
-        
-        st.subheader(combines_word)
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{team2_slip_name}</h3>", unsafe_allow_html=True)
+      
+        st.markdown(f"<h3 style='text-align: center; color: black;'>{combines_word2}</h3>", unsafe_allow_html=True)
 
         col5, col6 = st.columns(2)
 
         with col5:
-            st.subheader("15 or more disposals")
+            st.markdown("<h3 style='text-align: center; color: black;'>15 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team2_Risk,15,20)
-            st.subheader("20 or more disposals")
+           
+            st.markdown("<h3 style='text-align: center; color: black;'>20 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team2_Risk,20,25)
-            st.subheader("25 or more disposals")
+            
+            st.markdown("<h3 style='text-align: center; color: black;'>25 or more disposals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_desposals_range(Team2_Risk,25,40)
 
         with col6:
-            st.subheader("1 or more goals")
+            st.markdown("<h3 style='text-align: center; color: black;'>1 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team2_Risk,1,10)
-            st.subheader("2 or more goals")
+         
+            st.markdown("<h3 style='text-align: center; color: black;'>2 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team2_Risk,2,10)
 
 def run_program(uploaded_file):
@@ -204,9 +227,10 @@ def run_program(uploaded_file):
     sorted_data = data.sort_values(by='Team', ascending=True)
 
     st.divider()
-    st.subheader('HEAD TO HEAD🤜🤛')
-    
 
+    st.markdown("<h2 style='text-align: center; color: black;'>🤼‍♂️ HEAD TO HEAD 🤼‍♂️</h2>", unsafe_allow_html=True)
+    
+    @st.cache_data(experimental_allow_widgets=True)
     def cached_dropbox():
 
         all_teams_list = ['Adelaide','Brisbane', 'Carlton', 'Collingwood','Essendon', 'Fremantle','Geelong', 
@@ -223,7 +247,8 @@ def run_program(uploaded_file):
     
 
     if len(AFL_selection)  != 2:
-        st.subheader('Choose two teams...')
+    
+        st.markdown("<h3 style='text-align: center; color: black;'>Choose two teams...</h3>", unsafe_allow_html=True)
     else:
         data_shown(AFL_selection, sorted_data)
 
