@@ -66,7 +66,7 @@ def data_shown(AFL_selection, sorted_data):
     st.divider()
 
     st.subheader('Choose Risk Level ↕️')
-    @st.cache_data(experimental_allow_widgets=True)
+
     def slider_cached():
         Risk_range = st.slider('Select Risk level', 0.0, 4.0, 0.0)
         return Risk_range
@@ -206,7 +206,7 @@ def run_program(uploaded_file):
     st.divider()
     st.subheader('HEAD TO HEAD🤜🤛')
     
-    @st.cache_data(experimental_allow_widgets=True)
+
     def cached_dropbox():
 
         all_teams_list = ['Adelaide','Brisbane', 'Carlton', 'Collingwood','Essendon', 'Fremantle','Geelong', 
