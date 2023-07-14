@@ -9,11 +9,11 @@ Fb.intro()
     
 uploaded_file = st.file_uploader(" ")
 if uploaded_file is not None:
-    st.markdown("<h3 style='text-align: center; color: black;'>I ate the file 🍽️</h3>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: black;'>I ate the file...</h4>", unsafe_allow_html=True)
 
     Fb.run_program(uploaded_file)
 else:
-    st.markdown("<h3 style='text-align: center; color: black;'>Feed me file to work...</h3>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: black;'>Feed me file to work...</h4>", unsafe_allow_html=True)
     st.divider()
 
 
