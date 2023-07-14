@@ -245,9 +245,9 @@ def run_program(uploaded_file):
     AFL_selection = cached_dropbox()
 
 
-    if len(AFL_selection)  != 2:
-    
+    if len(AFL_selection) == 0:
         st.markdown("<h3 style='text-align: center; color: black;'>Choose two teams...</h3>", unsafe_allow_html=True)
+
     
     if len(AFL_selection) == 1:
         
@@ -255,7 +255,9 @@ def run_program(uploaded_file):
 
     if len(AFL_selection) > 2:
 
-        st.markdown("<h3 style='text-align: center; color: black;'>You chose more than 2 teams dummy</h3>", unsafe_allow_html=True)
-    else:
+        st.markdown("<h3 style='text-align: center; color: black;'>Why would you choose more than 2 teams?</h3>", unsafe_allow_html=True)
+    if len(AFL_selection) == 2:
         data_shown(AFL_selection, sorted_data)
+    else:
+        st.write('')
 
