@@ -9,6 +9,7 @@ Fb.intro()
     
 uploaded_file = st.file_uploader(" ")
 if uploaded_file is not None:
+    st.markdown("<h3 style='text-align: center; color: black;'>I ate the file 🍽️</h3>", unsafe_allow_html=True)
 
     Fb.run_program(uploaded_file)
 else:
