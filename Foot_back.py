@@ -249,7 +249,7 @@ def run_program(uploaded_file):
     
         st.markdown("<h3 style='text-align: center; color: black;'>Choose two teams...</h3>", unsafe_allow_html=True)
     
-    if len(AFL_selection) = 1:
+    if len(AFL_selection) == 1:
         
         st.markdown("<h3 style='text-align: center; color: black;'>Choose 1 more team...</h3>", unsafe_allow_html=True)
 
