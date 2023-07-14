@@ -36,13 +36,13 @@ def read_data(uploaded_file):
 
 def Team1_2_desposals_range(Team1_Risk,lower_lim,upper_lim):
     Dsp = Team1_Risk[(Team1_Risk['Adjusted Disposals'] >= lower_lim) & (Team1_Risk['Adjusted Disposals'] < upper_lim)].sort_values('Adjusted Disposals')
-    tabel = Dsp[['Player', 'Adjusted Disposals']]
+    tabel = Dsp[['Player', 'Adjusted Disposals', 'Matches Score %' ]]
     st.write(tabel)
 
 
 def Team1_2_goals_range(Team1_Risk,lower_lim,upper_lim):
     Dsp = Team1_Risk[(Team1_Risk['Adjusted Goals_Avg'] >= lower_lim) & (Team1_Risk['Adjusted Goals_Avg'] < upper_lim)].sort_values('Adjusted Goals_Avg')
-    tabel = Dsp[['Player', 'Adjusted Goals_Avg']]
+    tabel = Dsp[['Player', 'Adjusted Goals_Avg', 'Matches Score %']]
     st.write(tabel)
 
 def sort_team(sorted_data,x):
@@ -50,21 +50,23 @@ def sort_team(sorted_data,x):
     return y
 
 
-def data_shown(AFL_selection, sorted_data):
+def data_shown(AFL_selection, sorted_data, data):
+    max_matches  =  np.amax(np.array(data['Matches']))
+    
     col1, col2 = st.columns(2)
     
     with col1:
         
         st.markdown(f"<h3 style='text-align: center; color: black;'>{AFL_selection[0]}</h3>", unsafe_allow_html=True)
         team1 = sort_team(sorted_data,AFL_selection[0])
-        st.write(team1[['Player', 'Goals_Avg', 'Disposals']])
+        st.write(team1[['Player', 'Goals_Avg', 'Disposals', 'Matches']])
 
 
 
     with col2:
         st.markdown(f"<h3 style='text-align: center; color: black;'>{AFL_selection[1]}</h3>", unsafe_allow_html=True)
         team2 = sort_team(sorted_data,AFL_selection[1])
-        st.write(team2[['Player', 'Goals_Avg', 'Disposals']])
+        st.write(team2[['Player', 'Goals_Avg', 'Disposals', 'Matches']])
 
     
     ##RISK SLIDER
@@ -72,6 +74,8 @@ def data_shown(AFL_selection, sorted_data):
 
     #st.subheader('Choose Risk Level ↕️')
     st.markdown("<h2 style='text-align: center; color: black;'>Choose Risk Level ↕️</h2>", unsafe_allow_html=True)
+
+    
     
     def slider_cached():
         Risk_range = st.slider('Select Risk level', 0.0, 4.0, 0.0)
@@ -128,14 +132,21 @@ def data_shown(AFL_selection, sorted_data):
     DRF_team1= pd.DataFrame({'Risk': np.full(x,-4.5+float(Risk_range))})
     GRF_team2= pd.DataFrame({'Risk': np.full(z,-1+float(Risk_range/3))})
     DRF_team2= pd.DataFrame({'Risk': np.full(z,-4.5+float(Risk_range))})
+    player_matches1 = np.array(team1['Matches'])
+    players_matches1_score =(player_matches1/max_matches)*100
+    player_matches2 = np.array(team2['Matches'])
+    players_matches2_score =(player_matches2/max_matches)*100
+   
 
     Team1_Risk = pd.DataFrame({'Player':np.array(team1['Player']),
                             'Adjusted Goals_Avg':np.array(team1['Goals_Avg'])+np.array(GRF_team1['Risk']),
-                                'Adjusted Disposals':np.array(team1['Disposals'])+np.array(DRF_team1['Risk'])})
+                                'Adjusted Disposals':np.array(team1['Disposals'])+np.array(DRF_team1['Risk']),
+                                'Matches Score %':players_matches1_score })
 
     Team2_Risk = pd.DataFrame({'Player':np.array(team2['Player']),
                             'Adjusted Goals_Avg':np.array(team2['Goals_Avg'])+np.array(GRF_team2['Risk']),
-                                'Adjusted Disposals':np.array(team2['Disposals'])+np.array(DRF_team2['Risk'])})
+                                'Adjusted Disposals':np.array(team2['Disposals'])+np.array(DRF_team2['Risk']),
+                                'Matches Score %':players_matches2_score})
 
     word_1 = "Selection: "
     word_2 = Risk
@@ -185,6 +196,7 @@ def data_shown(AFL_selection, sorted_data):
          
             st.markdown("<h3 style='text-align: center; color: black;'>2 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team1_Risk,2,10)
+            
         
 
 
@@ -219,6 +231,7 @@ def data_shown(AFL_selection, sorted_data):
          
             st.markdown("<h3 style='text-align: center; color: black;'>2 or more goals</h3>", unsafe_allow_html=True)
             Fb.Team1_2_goals_range(Team2_Risk,2,10)
+
 
 def run_program(uploaded_file):
 
@@ -257,7 +270,7 @@ def run_program(uploaded_file):
 
         st.markdown("<h3 style='text-align: center; color: black;'>Why would you choose more than 2 teams?</h3>", unsafe_allow_html=True)
     if len(AFL_selection) == 2:
-        data_shown(AFL_selection, sorted_data)
+        data_shown(AFL_selection, sorted_data, data)
     else:
         st.write('')
 
